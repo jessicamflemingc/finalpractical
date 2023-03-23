@@ -51,35 +51,13 @@
         apiKey: apiKey
       }).addTo(map);
       
-      const zipcodes = L.esri
-        .featureLayer({
-          url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/Protected_Conserved_Area/FeatureServer/0",
-          simplifyFactor: 0.35,
-          precision: 5,
-          fields: ["Name – English"],
-          style: {
-            color: "#A9A9A9",
-            weight: 1
-          }
-        })
-        .addTo(map);
-
-      let oldId;
-
-      zipcodes.on("mouseout", function (e) {
-        document.getElementById("info-pane").innerHTML = "Hover to Inspect";
-        zipcodes.resetFeatureStyle(oldId);
-      });
-
-      zipcodes.on("mouseover", function (e) {
-        oldId = e.layer.feature.id;
-        document.getElementById("info-pane").innerHTML = e.layer.feature.properties.ZIP + " " + e.layer.feature.properties.PO_NAME;
-        zipcodes.setFeatureStyle(e.layer.feature.id, {
-          color: "#9D78D2",
-          weight: 3,
-          opacity: 1
+      var parks = L.esri
+       .featureLayer({
+         url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/Protected_Conserved_Area/FeatureServer/0/"
         });
-      });
+
+      parks.addTo(map);
+      
     </script>
   </body>
 </html>
