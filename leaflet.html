@@ -13,7 +13,7 @@
     <!-- Load Esri Leaflet from CDN -->
     <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
     <script src="https://unpkg.com/esri-leaflet-vector@4.0.1/dist/esri-leaflet-vector.js"></script>
-    <script src="practicalimagery.jpg"></script>
+   <!-- <script src="practicalimagery.jpg"></script> -->
     
     <style>
       body {
@@ -51,11 +51,11 @@
       L.esri.Vector.vectorBasemapLayer(basemapEnum, {
         apiKey: apiKey
       }).addTo(map);
-      
+      <!--
       var imageUrl = "practicalimagery.jpg",
         imageBounds = [[45.56380, -80.52216], [43.66104, -78.79725]];
       L.imageOverlay(imageUrl, imageBounds).addTo(map);
-      
+      -->
       var parks = L.esri
        .featureLayer({
          url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/Protected_Conserved_Area/FeatureServer/0/"
