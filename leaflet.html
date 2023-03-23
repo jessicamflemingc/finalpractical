@@ -61,7 +61,7 @@
           url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/Protected_Conserved_Area/FeatureServer/0/",
           simplifyFactor: 0.35,
           precision: 5,
-          fields: ["Name – English"],
+          fields: ["OBJECTID"],
           style: {
             color: "#A9A9A9",
             weight: 1
@@ -78,7 +78,7 @@
 
       zipcodes.on("mouseover", function (e) {
         oldId = e.layer.feature.id;
-        document.getElementById("info-pane").innerHTML = e.layer.feature.properties.Name – English + " " + e.layer.feature.properties.Name – English;
+        document.getElementById("info-pane").innerHTML = e.layer.feature.properties.OBJECTID;
         zipcodes.setFeatureStyle(e.layer.feature.id, {
           color: "#9D78D2",
           weight: 3,
