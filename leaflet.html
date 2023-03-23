@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<!-- Code is based from a mix of the ArcGIS Developers pages on Leaflet and the MapTiler Leaflet tutorials on YouTube -->
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
@@ -57,6 +57,12 @@
         });
 
       parks.addTo(map);
+      
+      L.control.scale ({
+        metric: true,
+        imperial: false,
+        position: 'bottomleft'
+      }).addTo(map);
       
       var marker = L.marker([44.6308, -79.0548]).addTo(map);
       marker.bindPopup("<b> Hey There! </b><br>This is a test for the GEOM99 final practical.");                     
