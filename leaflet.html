@@ -51,6 +51,12 @@
         apiKey: apiKey
       }).addTo(map);
 
+      var parks = L.esri
+        .featureLayer({
+          url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/Protected_Conserved_Area/FeatureServer/0/?token=waB0NAY2U0j5nWVk1b2gWqCamzMhsDST3OmSQWSBs2cIKPja6kxbpu2jvF2egv8ZJL_yt9e0A6H44Kg0aQbDRgZW_nkfhExHsfiunE_CItSMFNL3tGb4zR8GJg5Dmr2tqzb-HBxfdrdK1pmLCNyrbA.."
+        });
+
+      parks.addTo(map);
     </script>
 
   </body>
