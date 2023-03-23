@@ -56,12 +56,34 @@
         imageBounds = [[44.757176, -79.246357], [44.613648, -78.855656]];
       L.imageOverlay(imageUrl, imageBounds).addTo(map);
       
-      var parks = L.esri
-       .featureLayer({
-         url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/Protected_Conserved_Area/FeatureServer/0/"
-        });
+      const zipcodes = L.esri
+        .featureLayer({
+          url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/Protected_Conserved_Area/FeatureServer/0/",
+          simplifyFactor: 0.35,
+          precision: 5,
+          fields: ["Name – English"],
+          style: {
+            color: "#A9A9A9",
+            weight: 1
+          }
+        })
+        .addTo(map);
 
-      parks.addTo(map);
+      let oldId;
+
+      zipcodes.on("mouseout", function (e) {
+        document.getElementById("info-pane").innerHTML = "Hover to Inspect";
+        zipcodes.resetFeatureStyle(oldId);
+      });
+
+      zipcodes.on("mouseover", function (e) {
+        oldId = e.layer.feature.id;
+        document.getElementById("info-pane").innerHTML = e.layer.feature.properties.Name – English + " " + e.layer.feature.properties.Name – English;
+        zipcodes.setFeatureStyle(e.layer.feature.id, {
+          color: "#9D78D2",
+          weight: 3,
+          opacity: 1
+        });
       
       L.control.scale ({
         metric: true,
@@ -71,7 +93,8 @@
       
       var marker = L.marker([44.6308, -79.0548]).addTo(map);
       marker.bindPopup("<b> Hey There! </b><br>This is a test for the GEOM99 final practical.");                     
-                            
+       
+       
                             
     </script>
   </body>
