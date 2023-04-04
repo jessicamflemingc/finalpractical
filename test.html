@@ -38,7 +38,7 @@
     </style>
     <div id="map"></div>
     <div id="selectedFeatures" class="leaflet-bar map-text">
-      Click on the map for <a href="https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/NCC_property_selection/FeatureServer/0">county info (sublayer 3)</a>
+      Click on the map for <a href="https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/NCC_property_selection">NCC Property</a>
     </div>
     <script>
       const map = L.map("map", {
@@ -47,7 +47,7 @@
 
       const usaDynamicLayer = L.esri
         .dynamicMapLayer({
-          url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/NCC_property_selection/FeatureServer/0",
+          url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/NCC_property_selection",
           opacity: 1
         })
         .addTo(map);
