@@ -1,7 +1,7 @@
-<html>
+g<html>
   <head>
     <meta charset="utf-8" />
-    <title>Simplify complex features</title>
+    <title>testing</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" crossorigin=""></script>
@@ -52,7 +52,7 @@
           url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/NCC_property_selection/FeatureServer/0/",
           simplifyFactor: 0.35,
           precision: 5,
-          fields: ["Biome"],
+          fields: ["NAME_E"],
           style: {
             color: "#A9A9A9",
             weight: 1
@@ -69,10 +69,10 @@
 
       zipcodes.on("mouseover", function (e) {
         oldId = e.layer.feature.id;
-        document.getElementById("info-pane").innerHTML = e.layer.feature.properties.Biome;
+        document.getElementById("info-pane").innerHTML = e.layer.feature.properties.NAME_E;
         zipcodes.setFeatureStyle(e.layer.feature.id, {
-          color: "#9D78D2",
-          weight: 3,
+          color: "#296b2f",
+          weight: 2,
           opacity: 1
         });
       });
