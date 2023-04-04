@@ -38,7 +38,7 @@
     </style>
     <div id="map"></div>
     <div id="selectedFeatures" class="leaflet-bar map-text">
-      Click on the map for <a href="https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer">county info (sublayer 3)</a>
+      Click on the map for <a href="https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/NCC_property_selection/FeatureServer/0">county info (sublayer 3)</a>
     </div>
     <script>
       const map = L.map("map", {
@@ -47,7 +47,7 @@
 
       const usaDynamicLayer = L.esri
         .dynamicMapLayer({
-          url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer",
+          url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/NCC_property_selection/FeatureServer/0",
           opacity: 1
         })
         .addTo(map);
@@ -62,7 +62,7 @@
         }
         usaDynamicLayer
           .identify()
-          .layers("visible:3") // just the counties sublayer
+          .layers("visible:0") // just the counties sublayer
           .on(map)
           .at(e.latlng)
           .run(function (error, featureCollection) {
@@ -74,7 +74,7 @@
             if (featureCollection.features.length > 0) {
               identifiedFeature = L.geoJSON(featureCollection.features[0]).addTo(map);
               var soilDescription =
-                featureCollection.features[0].properties.NAME + " County, " + featureCollection.features[0].properties.STATE_NAME;
+                featureCollection.features[0].properties.NAME_E + " Name, ";
               pane.innerHTML = soilDescription;
             } else {
               pane.innerHTML = "No features identified.";
