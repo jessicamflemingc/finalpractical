@@ -1,16 +1,14 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>TESTING</title>
+    <title>Display a dynamic map layer</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" crossorigin=""></script>
-    
     <!-- Load Esri Leaflet from CDN -->
     <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
-    <script src="https://unpkg.com/esri-leaflet-vector@4.0.1/dist/esri-leaflet-vector.js"></script>
-    
+    <!-- Load Esri Leaflet Vector from CDN -->
+    <script src="https://unpkg.com/esri-leaflet-vector@4.0.1/dist/esri-leaflet-vector.js" crossorigin=""></script>
     <style>
       html,
       body,
@@ -26,82 +24,22 @@
     </style>
   </head>
   <body>
-    <style>
-      #selectedFeatures {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        z-index: 1000;
-        background: white;
-        padding: 1em;
-      }
-      .leaflet-bar.map-text a {
-        color: #79bd8f;
-        display: inline;
-      }
-    </style>
     <div id="map"></div>
-    <div id="selectedFeatures" class="leaflet-bar map-text">
-      Click on the map for <a href="https://services1.arcgis.com/pMeXRvgWClLJZr3s/ArcGIS/rest/services/NCC_property_selection/FeatureServer">NCC Property</a>
-    </div>
     <script>
-      const map = L.map("map", {
-        minZoom: 2
-      })
+      const apiKey = "YOUR_API_KEY";
 
-      map.setView([44.6308, -79.0548], 12);
-      
-      const apiKey = "AAPKaac2cf2edcae4af19e382017224435a2THx7ZaP0-AcwX4FBIzkQ3cReZJljZ3BH0C5K_nqbi52q-3yht3HzjGybKs0vfACB";
+      const map = L.map("map").setView([37.71, -99.88], 4);
 
-      const basemapEnum = "ArcGIS:streets";
-
-      L.esri.Vector.vectorBasemapLayer(basemapEnum, {
-        apiKey: apiKey
+      L.esri.Vector.vectorBasemapLayer("ArcGIS:Imagery:Standard", {
+        apikey: apiKey
       }).addTo(map);
 
-      var parks = L.esri
-       .featureLayer({
-         url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/NCC_property_selection/FeatureServer/0/"
-        });
-
-      parks.addTo(map);
-      
-      const usaDynamicLayer = L.esri
+      L.esri
         .dynamicMapLayer({
-          url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/ArcGIS/rest/services/NCC_property_selection/FeatureServer",
-          opacity: 1
+          url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer",
+          opacity: 0.7
         })
         .addTo(map);
-
-      let identifiedFeature;
-      const pane = document.getElementById("selectedFeatures");
-
-      map.on("click", function (e) {
-        pane.innerHTML = "Loading";
-        if (identifiedFeature) {
-          map.removeLayer(identifiedFeature);
-        }
-        usaDynamicLayer
-          .identify()
-          .layers("visible:0") // just the counties sublayer
-          .on(map)
-          .at(e.latlng)
-          .run(function (error, featureCollection) {
-            if (error) {
-              return;
-            }
-
-            // make sure at least one feature was identified.
-            if (featureCollection.features.length > 0) {
-              identifiedFeature = L.geoJSON(featureCollection.features[0]).addTo(map);
-              var soilDescription =
-                featureCollection.features[0].properties.Biome + " Biome ";
-              pane.innerHTML = soilDescription;
-            } else {
-              pane.innerHTML = "No features identified.";
-            }
-          });
-      });
     </script>
   </body>
 </html>
