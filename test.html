@@ -1,32 +1,38 @@
-g<html>
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<!-- Testing Leaflet to display NCC parcels in the Carden Alvar -->
+<!-- Try seeing if we can use the code where you can click between basemaps as a click between layers method instead and how quick it will load doing that --> 
+  
   <head>
     <meta charset="utf-8" />
-    <title>testing</title>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" href="stylesheet.css">
+    <title>Esri Leaflet Tutorials: Display a map - Modified to show Carden Alvar</title>
+
+    <!-- Load Leaflet from CDN -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" crossorigin=""></script>
 
     <!-- Load Esri Leaflet from CDN -->
     <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet-vector@4.0.1/dist/esri-leaflet-vector.js"></script>
 
-    <!-- Load Esri Leaflet Vector from CDN -->
-    <script src="https://unpkg.com/esri-leaflet-vector@4.0.1/dist/esri-leaflet-vector.js" crossorigin=""></script>
     <style>
-      html,
-      body,
-      #map {
-        padding: 0;
+      body {
         margin: 0;
-        height: 100%;
-        width: 100%;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 68px;
+        bottom: 0;
+        right: 0;
+        left: 0;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 14px;
         color: #323232;
       }
-    </style>
-  </head>
-  <body>
-    <style>
       #info-pane {
         position: absolute;
         top: 10px;
@@ -36,8 +42,22 @@ g<html>
         background: white;
       }
     </style>
+  </head>
+<!-- Changed to focus on the Carden area with a zoom of 11 to ensure enough of the area is visible including some relevant anthropogenic features for orientation.
+Added NCC protected areas layer that was created by querying a protected area GDB for NCC owned areas and uploaded this feature layer to AGOL. Next changed the 
+background basemap to imagery since we will be using remote sensing tech and NCC, in general, displays their maps with a imagery background to help with restoration 
+initiatives. -->
+  <body>
+    
+<div class="navbar">
+  <a class="active" href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="trials.html">Trials</a>
+  <a href="map.html">Solution</a>
+</div>
+    
     <div id="map"></div>
-    <div id="info-pane" class="leaflet-bar">Hover to Inspect</div>
+ <div id="info-pane" class="leaflet-bar">Hover to Inspect</div>
     <script>
       const apiKey = "AAPKaac2cf2edcae4af19e382017224435a2THx7ZaP0-AcwX4FBIzkQ3cReZJljZ3BH0C5K_nqbi52q-3yht3HzjGybKs0vfACB";
 
@@ -77,5 +97,38 @@ g<html>
         });
       });
     </script>
+    
+    <script>
+
+      const map = L.map("map", {
+        minZoom: 2
+      })
+
+      map.setView([44.6425, -79.036], 11); 
+
+      const apiKey = "AAPKef6c3ee5104e425d91ef8ee2596379ecuNIO6muQJMeheJcqAq6wMV-hjNs94Br8HhqXM19D8IAWQEZ0SdW28lOX99Oblec_";
+
+      const basemapEnum = "ArcGIS:Imagery";
+
+      L.esri.Vector.vectorBasemapLayer(basemapEnum, {
+        apiKey: apiKey
+      }).addTo(map);
+      
+      var NCC = L.esri
+       .featureLayer({
+         url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/ProtectedArea_Boundary/FeatureServer/0/"
+        });
+
+      NCC.addTo(map);
+
+     // var Carden = L.esri
+       //.featureLayer({
+        // url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/CardenShapefile/FeatureServer/0/"
+       // });
+
+      //Carden.addTo(map); Need to figure out way to display this different from the NCC layers or cant display at all 
+    </script>
+
   </body>
+
 </html>
