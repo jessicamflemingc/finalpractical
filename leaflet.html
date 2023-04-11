@@ -52,11 +52,7 @@
         apiKey: apiKey
       }).addTo(map);
       
-      <!--
-      var imageUrl = "practicalimagery.jpg",
-        imageBounds = [[44.757176, -79.246357], [44.613648, -78.855656]];
-      L.imageOverlay(imageUrl, imageBounds).addTo(map);
-      -->
+
       var parks = L.esri
        .featureLayer({
          url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/NCC_property_selection/FeatureServer/0/"
@@ -77,7 +73,7 @@
         popupAnchor: [12, -90]
       })
         
-      var marker = L.marker([44.6710, -79.0121], {icon: customIcon}).addTo(map);
+      var marker = L.marker([44.6657, -79.0353], {icon: customIcon}).addTo(map);
       marker.bindPopup("<b> Hey There! </b><br>This is a test for the GEOM99 final practical.");                     
        
        
