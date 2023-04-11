@@ -52,10 +52,11 @@
         apiKey: apiKey
       }).addTo(map);
       
+      <!--
       var imageUrl = "practicalimagery.jpg",
         imageBounds = [[44.757176, -79.246357], [44.613648, -78.855656]];
       L.imageOverlay(imageUrl, imageBounds).addTo(map);
-      
+      -->
       var parks = L.esri
        .featureLayer({
          url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/NCC_property_selection/FeatureServer/0/"
@@ -71,9 +72,9 @@
       
       var customIcon = L.icon({
         iconUrl: 'https://www.freeiconspng.com/uploads/green-leaf-icon-10.png',
-        iconSize: [28,28],
-        <!--iconAnchor: [22, 94],
-        popupAnchor: [12, -90] -->
+        iconSize: [25,25],
+        iconAnchor: [22, 94],
+        popupAnchor: [12, -90]
       })
         
       var marker = L.marker([44.6710, -79.0121], {icon: customIcon}).addTo(map);
