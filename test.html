@@ -33,9 +33,17 @@
         font-size: 14px;
         color: #323232;
       }
+       #info-pane {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 400;
+        padding: 1em;
+        background: white;
+      }
     </style>
   </head>
-<!-- Changed to focus on the Carden area with a zoom of 11 to ensure enough of the area is visible including some relevant anthropogenic features for orientation.
+<!-- Changed to focus on the Carden area with a zoom of 12 to ensure enough of the area is visible including some relevant anthropogenic features for orientation.
 Added NCC protected areas layer that was created by querying a protected area GDB for NCC owned areas and uploaded this feature layer to AGOL. Next changed the 
 background basemap to imagery since we will be using remote sensing tech and NCC, in general, displays their maps with a imagery background to help with restoration 
 initiatives. -->
@@ -56,7 +64,7 @@ initiatives. -->
         minZoom: 2
       })
 
-      map.setView([44.6425, -79.036], 11); 
+      map.setView([44.6308, -79.0548], 12); 
 
       const apiKey = "AAPKef6c3ee5104e425d91ef8ee2596379ecuNIO6muQJMeheJcqAq6wMV-hjNs94Br8HhqXM19D8IAWQEZ0SdW28lOX99Oblec_";
 
