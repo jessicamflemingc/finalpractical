@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
     <link rel="stylesheet" href="stylesheet.css">
-    <title>Esri Leaflet Tutorials: Display a map - Modified to show Carden Alvar</title>
+    <title>JML Cartolytics</title>
 
     <!-- Load Leaflet from CDN -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" crossorigin="" />
@@ -49,7 +49,7 @@ initiatives. -->
 </div>
 --> 
     <div id="map"></div>
-
+    <div id="info-pane" class="leaflet-bar">Hover to Inspect</div>
     <script>
 
       const map = L.map("map", {
@@ -60,19 +60,41 @@ initiatives. -->
 
       const apiKey = "AAPKef6c3ee5104e425d91ef8ee2596379ecuNIO6muQJMeheJcqAq6wMV-hjNs94Br8HhqXM19D8IAWQEZ0SdW28lOX99Oblec_";
 
-      const basemapEnum = "ArcGIS:Imagery";
+      const basemapEnum = "ArcGIS:LightGray:Base";
 
       L.esri.Vector.vectorBasemapLayer(basemapEnum, {
         apiKey: apiKey
       }).addTo(map);
       
-      var NCC = L.esri
-       .featureLayer({
-         url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/ProtectedArea_Boundary/FeatureServer/0/"
+      const boundaries = L.esri
+        .featureLayer({
+          url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/ProtectedArea_Boundary/FeatureServer/0/",
+          simplifyFactor: 0.35,
+          precision: 5,
+          fields: ["NAME_E"],
+          style: {
+            color: "#A9A9A9",
+            weight: 1
+          }
+        })
+        .addTo(map);
+      let oldId;
+
+      boundaries.on("mouseout", function (e) {
+        document.getElementById("info-pane").innerHTML = "Hover to Inspect";
+        boundaries.resetFeatureStyle(oldId);
+      });
+
+      boundaries.on("mouseover", function (e) {
+        oldId = e.layer.feature.id;
+        document.getElementById("info-pane").innerHTML = e.layer.feature.properties.NAME_E;
+        boundaries.setFeatureStyle(e.layer.feature.id, {
+          color: "#296b2f",
+          weight: 2,
+          opacity: 1
         });
-
-      NCC.addTo(map);
-
+      });
+      
      // var Carden = L.esri
        //.featureLayer({
         // url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/CardenShapefile/FeatureServer/0/"
