@@ -69,7 +69,14 @@
         position: 'bottomleft'
       }).addTo(map);
       
-      var marker = L.marker([44.6308, -79.0548]).addTo(map);
+      var customIcon = L.icon({
+        iconUrl: 'https://leafletjs.com/examples/custom-icons/leaf-green.png'
+        iconSize: [38,95],
+        iconAnchor: [22,94],
+        popupAnchor: [12,-90]
+      })
+        
+      var marker = L.marker([44.6308, -79.0548], {icon: customIcon}).addTo(map);
       marker.bindPopup("<b> Hey There! </b><br>This is a test for the GEOM99 final practical.");                     
        
        
