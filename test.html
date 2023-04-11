@@ -110,9 +110,36 @@ initiatives. -->
 
       //Carden.addTo(map); Need to figure out way to display this different from the NCC layers or cant display at all 
       
-      var marker = L.marker([44.6308, -79.0548]).addTo(map);
-      marker.bindPopup("<b> Hey There! </b><br>This is a test for the GEOM99 final practical.");  
+      L.control.scale ({
+        metric: true,
+        imperial: false,
+        position: 'bottomleft'
+      }).addTo(map);
       
+      var customIcon = L.icon({
+        iconUrl: 'https://www.freeiconspng.com/uploads/green-leaf-icon-10.png',
+        iconSize: [10,10],
+
+      })
+        
+      var marker = L.marker([44.6657, -79.0353], {icon: customIcon}).addTo(map);
+      marker.bindPopup("<b> Hey There! </b><br>This is a test for the GEOM99 final practical.");      
+      
+      var marker1 = L.marker([44.6554, -79.0827], {icon: customIcon}).addTo(map);
+      marker1.bindPopup("<b> Hey There! </b><br>This is a test for the GEOM99 final practical.");  
+       
+      var marker2 = L.marker([44.6435, -79.0845], {icon: customIcon}).addTo(map);
+      marker2.bindPopup("<b> Hey There! </b><br>This is a test for the GEOM99 final practical."); 
+      
+      var marker3 = L.marker([44.6149, -79.0508], {icon: customIcon}).addTo(map);
+      marker3.bindPopup("<b> Hey There! </b><br>This is a test for the GEOM99 final practical."); 
+            
+      var marker4 = L.marker([44.6094, -79.0398], {icon: customIcon}).addTo(map);
+      marker4.bindPopup("<b> Hey There! </b><br>This is a test for the GEOM99 final practical."); 
+      
+      var marker5 = L.marker([44.6980, -79.0488], {icon: customIcon}).addTo(map);
+      marker5.bindPopup("<b> Hey There! </b><br>This is a test for the GEOM99 final practical."); 
+     
     </script>
 
   </body>
