@@ -41,6 +41,14 @@
         padding: 1em;
         background: white;
       }
+       #info-pane2 {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 400;
+        padding: 1em;
+        background: white;
+      }
     </style>
   </head>
 <!-- Changed to focus on the Carden area with a zoom of 13 to ensure enough of the area is visible including some relevant anthropogenic features for orientation.
@@ -48,6 +56,8 @@ Added NCC protected areas layer that was created by querying a protected area GD
 background basemap to imagery since we will be using remote sensing tech and NCC, in general, displays their maps with a imagery background to help with restoration 
 initiatives. -->
   <body>
+    <p> Carden Alvar Slider<p>
+<input id="slide" type="range" min="0" max="1" step="0.2" value="1" onchange="updateOpacity(this.value)">
 <!--    
 <div class="navbar">
   <a class="active" href="index.html">Home</a>
@@ -56,39 +66,65 @@ initiatives. -->
   <a href="map.html">Solution</a>
 </div>
 --> 
+
+   
     <div id="map"></div>
     <div id="info-pane" class="leaflet-bar">Hover to Inspect</div>
+   
     <script>
 
+      const apiKey = "AAPK4d7aa34174e8497d8e8d10189e6a88f8B9cgmO9GN1kDtF5i2hkYZr_5OukxG3z6lHj1DrW86ytYkIiWRGhrcXYUHG6-pJls";
+      const basemapEnum = "ArcGIS:LightGray:Base";
       const map = L.map("map", {
         minZoom: 2
-      })
-
-      map.setView([44.6308, -79.0548], 13); 
-
-      const apiKey = "AAPKef6c3ee5104e425d91ef8ee2596379ecuNIO6muQJMeheJcqAq6wMV-hjNs94Br8HhqXM19D8IAWQEZ0SdW28lOX99Oblec_";
-
-      const basemapEnum = "ArcGIS:LightGray:Base";
-
+      }).setView([44.6308, -79.0548], 13); 
+      
       L.esri.Vector.vectorBasemapLayer(basemapEnum, {
         apiKey: apiKey
       }).addTo(map);
       
-      const boundaries = L.esri
-        .featureLayer({
-          url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/ProtectedArea_Boundary/FeatureServer/0/",
-          simplifyFactor: 0.35,
-          precision: 5,
-          fields: ["NAME_E"],
-          style: {
-            color: "#A9A9A9",
-            weight: 1
-          }
-        })
-        .addTo(map);
-      let oldId;
+    var OldCarden = L.esri.tiledMapLayer({
+        url: "https://tiles.arcgis.com/tiles/pMeXRvgWClLJZr3s/arcgis/rest/services/Carden1984_WTL1/MapServer",
+       apiKey: apiKey,
+        zoomOffsetAllowance: 0.6,
+        opacity: 1,
+        }).addTo(map);    
+      map.getPane("tilePane").style.zIndex = 450;
+      
+       var NewCarden = L.esri.tiledMapLayer({
+        url: "https://tiles.arcgis.com/tiles/pMeXRvgWClLJZr3s/arcgis/rest/services/Carden2021_WTL1/MapServer",
+       apiKey: apiKey,
+       zoomOffsetAllowance: 0.6,
+        opacity: 1,
+      }).addTo(map);   
+      map.getPane("tilePane").style.zIndex = 450;
+     
+      function updateOpacity(value) {
+        NewCarden.setOpacity(value);
+      }
 
-      boundaries.on("mouseout", function (e) {
+      map.createPane("Boundaries");
+    
+       const boundaries = L.esri
+        .featureLayer({
+          url: "https://services1.arcgis.com/pMeXRvgWClLJZr3s/arcgis/rest/services/NCCProperties_WFL1/FeatureServer/0/",
+          apiKey: apiKey,      
+          precision: 5,
+          pane: "Boundaries",
+          simplifyFactor: 1,
+        })
+          boundaries.setStyle({
+      fields: ["NAME_E"],
+      color: "#A9A9A9",
+      weight: 10,
+      opacity: 1,
+    
+    })
+        .addTo(map);
+  map.getPane("Boundaries").style.zIndex = 650;  
+      
+      let oldId;
+        boundaries.on("mouseout", function (e) {
         document.getElementById("info-pane").innerHTML = "Hover to Inspect";
         boundaries.resetFeatureStyle(oldId);
       });
@@ -116,15 +152,12 @@ initiatives. -->
         position: 'bottomleft'
       }).addTo(map);
       
-      //Custom marker icons was inspired by MapTiler's Youtube series called "Leafket Tutorial
-      //from https://www.youtube.com/watch?v=wnsEYm9hF0o
-      
       var customIcon = L.icon({
         iconUrl: 'https://www.freeiconspng.com/uploads/green-leaf-icon-10.png',
         iconSize: [15,15],
 
       })
-        
+
       var marker = L.marker([44.6657, -79.0353], {icon: customIcon}).addTo(map);
       marker.bindPopup("<b> Cedarhurst - NCC Property 140903 </b><br>This is a test.");      
       
@@ -145,6 +178,9 @@ initiatives. -->
 
       var marker6 = L.marker([44.6280, -79.0561], {icon: customIcon}).addTo(map);
       marker6.bindPopup("<b> Carden Alvar Provincial Park</b><br>This is a test.");
+      
+
+      
     </script>
 
   </body>
