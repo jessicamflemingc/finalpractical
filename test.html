@@ -114,10 +114,10 @@ initiatives. -->
           simplifyFactor: 1,
         })
           boundaries.setStyle({
-      fields: ["NAME_E"],
-      color: "#A9A9A9",
-      weight: 10,
-      opacity: 1,
+          fields: ["NAME_E"],
+          color: "#A9A9A9",
+          weight: 10,
+          opacity: 1,
     
     })
         .addTo(map);
@@ -133,8 +133,8 @@ initiatives. -->
         oldId = e.layer.feature.id;
         document.getElementById("info-pane").innerHTML = e.layer.feature.properties.NAME_E;
         boundaries.setFeatureStyle(e.layer.feature.id, {
-          color: "#296b2f",
-          weight: 2,
+          color: "#ff6f00",
+          weight: 3,
           opacity: 1
         });
       });
@@ -155,7 +155,7 @@ initiatives. -->
       var customIcon = L.icon({
         iconUrl: 'https://www.freeiconspng.com/uploads/green-leaf-icon-10.png',
         iconSize: [15,15],
-
+        color: #ff6f00,
       })
 
       var marker = L.marker([44.6657, -79.0353], {icon: customIcon}).addTo(map);
